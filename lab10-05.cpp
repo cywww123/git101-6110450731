@@ -1,9 +1,12 @@
-
 #include <iostream>
+
+#include <sstream>
 
 #include <cmath>
 
 #include <string>
+
+#include <iomanip>
 
 
 
@@ -11,9 +14,7 @@ using namespace std;
 
 
 
-class Time
-
-{
+class Time{
 
 private:
 
@@ -37,29 +38,11 @@ public:
 
         else if (duration < 0) duration += 86400;
 
-        hour = duration/3600;
+        hour = duration/3600 ;
 
         minute = (duration/60 - hour*60) ;
 
-        second = duration%60;
-
-    }
-
-    void setHour(int hour){
-
-        this->hour = (hour>=0)?hour:0;
-
-    }
-
-    void setMinute(int minute){
-
-        this->minute = (minute>=0)?minute:0;
-
-    }
-
-    void setSecond(int second){
-
-        this->second = (second>=0)?second:0;
+        second = duration%60 ;
 
     }
 
@@ -113,19 +96,21 @@ public:
 
     string toString(){
 
-        string s;
+        stringstream ss;
 
-        s = (getHour()<10)?'0'+to_string(getHour()):to_string(getHour()) ;
+        if (hour<10) ss << 0;
 
-        s += ':';
+        ss << hour << ':';
 
-        s += (getMinute()<10)?'0'+to_string(getMinute()):to_string(getMinute());
+        if (minute<10) ss << 0;
 
-        s += ':';
+        ss << minute << ':';
 
-        s += (getSecond()<10)?'0'+to_string(getSecond()):to_string(getSecond());
+        if (second<10) ss << 0;
 
-        return s;
+        ss << second ;
+
+        return ss.str();
 
     }
 
